@@ -28,11 +28,9 @@ public class FileManager {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		int end = 0;
 		int a2 = 0;
-		while((end != 2)){
+		while((line = br.readLine()) != null){
 			try {
-				if((br.readLine() == null)) {
-					break;
-				}
+
 				if((line = br.readLine()).equals("")) {
 					end+=1;
 					continue;
@@ -45,15 +43,17 @@ public class FileManager {
 			
 			String[] array = line.split(",");
 			
-			String year = array[0].substring(0, 3);
+			String year = array[0].substring(0, 4);
 			//System.out.println(a2);
-			a2+=1;
-			String id = array[0].substring(4, 5);
-			String specific_time = array[0].substring(6, array[0].length()-1);
+			//a2+=1;
+			String id = array[0].substring(4, 6);
+			String specific_time = array[0].substring(7, array[0].length());
 			String lat = array[1];
 			String Long = array[2];
 			String Prs = array[3];
 			String Wnd = array[4];
+			
+			System.out.println(Long);
 			
 			Typhoon t = new Typhoon(year, specific_time, lat, Long, Prs, Wnd);
 			a.insert(id, t);
