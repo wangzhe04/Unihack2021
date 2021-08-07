@@ -260,6 +260,8 @@ public class Main extends Application {
 	
 		int Asize = tIDs.size();
 		
+		System.out.println(Asize);
+		
 		for(int i = 0; i < Asize; i++) {
 			
 			tableView.getItems()

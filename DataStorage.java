@@ -40,11 +40,11 @@ public class DataStorage {
 		
 		ArrayList<String> IDs = new ArrayList<String>();
 		
+		System.out.println(dataStorage.size());
+		
 		for(Entry<String, Typhoon> entry : dataStorage.entrySet()) {
 			
-			if(entry.getValue().getYear() == year && entry.getValue().getLat() <= elat &&
-					entry.getValue().getLat() >= slat && entry.getValue().getLong() >= slong
-					&& entry.getValue().getLong() <= elong) {
+			if(entry.getValue().getYear() == year) {
 				
 				
 				IDs.add(entry.getKey());
