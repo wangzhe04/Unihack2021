@@ -435,15 +435,15 @@ public class Main extends Application {
 		// Create a table to show the data
 		
 		Label laji = new Label("There will be " + dataStorage.predict(slat, elat, 
-				slong, elong, Integer.parseInt(month))+ " typhoons in "+ month);
+				slong, elong, Integer.parseInt(month))+ " typhoons in month "+ month);
 		
 		Label laji2 = new Label("The average wind pressure in month "+ month + " is " +dataStorage.predictPrs());
 		
-		Label laji3 = new Label("The average wind in "+ month + " is " +dataStorage.predictWnd());
+		Label laji3 = new Label("The average wind in month "+ month + " is " +dataStorage.predictWnd());
 		
+		Label laji4 = new Label(determineLevel(dataStorage.predictWnd()));
 		
-		
-		VBox vbox = new VBox(laji, laji2, laji3);
+		VBox vbox = new VBox(laji, laji2, laji3, laji4);
 		Scene scene = new Scene(vbox);
 		Stage typhoonData = new Stage();
 		typhoonData.setHeight(500);
@@ -453,6 +453,42 @@ public class Main extends Application {
 		typhoonData.show();
 	}
 	
+	public String determineLevel(int Wnd) {
+		  String return_Value = "";
+		  int level = 0;
+		  boolean not_Typhoon = false;
+		  
+		  if(Wnd > 32.7 && Wnd <36.9 ) {
+		   level = 12;
+		  }else if(Wnd > 37 && Wnd <41.4) {
+		   level = 13;
+		  }else if(Wnd > 41.5 && Wnd <46.1) {
+		   level = 14;
+		  }else if(Wnd > 46.2 && Wnd <50.9) {
+		   level = 15;
+		  }else if(Wnd > 51 && Wnd <56) {
+		   level = 16;
+		  }else if(Wnd > 56.1 && Wnd <61.2) {
+		   level = 17;
+		  }else if(Wnd <32.7) {
+		   not_Typhoon = true;
+		  }else {
+		   level = 18;
+		  }
+		  
+		  if(level <= 14) {
+		   return_Value = "The predicted typhoon is relatively weak, ranked " + level + 
+		     ". Still need to watch out and stay at home ";
+		  }else if(level >= 15) {
+		   return_Value = "The predicted typhoon is relatively strong, ranked " + level + 
+		     ". needs to be cautious and better stay at home";
+		  }else if(not_Typhoon) {
+			   return_Value = "The predicted wind is not strong enough to form typhoon, ranked " + level + 
+					     ". You can go out and enjoy the month";
+		  }
+		  
+		  return return_Value;
+		 }
 	/**
 	 * @param args
 	 */
