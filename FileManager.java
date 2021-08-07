@@ -28,7 +28,7 @@ public class FileManager {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		int end = 0;
 		int a2 = 0;
-		while((line = br.readLine()) != null){
+		while(end!=2){
 			try {
 
 				if((line = br.readLine()).equals("")) {
@@ -45,18 +45,26 @@ public class FileManager {
 			
 			String year = array[0].substring(0, 4);
 			//System.out.println(a2);
-			//a2+=1;
+			
+			a2+=1;
+
 			String id = array[0].substring(4, 6);
-			String specific_time = array[0].substring(7, array[0].length());
+			String specific_time = array[0].substring(6, array[0].length());
+			String month = array[0].substring(6, 8);
 			String lat = array[1];
 			String Long = array[2];
 			String Prs = array[3];
 			String Wnd = array[4];
 			
-			System.out.println(Long);
+			//System.out.println(month);
 			
-			Typhoon t = new Typhoon(year, specific_time, lat, Long, Prs, Wnd);
+			Typhoon t = new Typhoon(Integer.parseInt(year), Integer.parseInt(month), Double.parseDouble(lat),
+					Double.parseDouble(Long), Double.parseDouble(Prs),Double.parseDouble(Wnd));
 			a.insert(id, t);
+			
+			if(a2 == 14997) {
+				break;
+			}
 			
 
 		}
