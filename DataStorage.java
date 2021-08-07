@@ -1,7 +1,6 @@
 /**
  * this File contains the DataStorage class to run the program
  */
-package application;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,7 +35,7 @@ public class DataStorage {
 		return dataStorage.containsKey(TyphoonID);
 	}
 	
-	public ArrayList<String> getID(double slat, double elat, double slong, double elong, int year) {
+	public ArrayList<String> getID(double slat, double elat, double slong, double elong, String year) {
 		
 		ArrayList<String> IDs = new ArrayList<String>();
 		
@@ -44,10 +43,15 @@ public class DataStorage {
 		
 		for(Entry<String, Typhoon> entry : dataStorage.entrySet()) {
 			
-			if(entry.getValue().getYear() == year) {
+			if(entry.getValue().getYear().equals(year)) {
 				
+				if(entry.getValue().getLat() > slat && entry.getValue().getLat()< elat) {
+					if(entry.getValue().getLong() > slong && entry.getValue().getLong()< elong) {
+						IDs.add(entry.getKey());
+					}
+				}
 				
-				IDs.add(entry.getKey());
+
 				
 			}
 		}

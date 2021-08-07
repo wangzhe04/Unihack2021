@@ -1,7 +1,6 @@
 /**
  * This file contains the Farm class to run the program
  */
-package application;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +11,7 @@ import java.util.Date;
  *
  */
 public class Typhoon {
-	public int ID = 0;
+	public String ID = "";
 	public String year = "";
 	public int month = 0;
 	public double lat = 0;
@@ -21,7 +20,7 @@ public class Typhoon {
 	public double Wnd = 0;
 	
 	
-	public Typhoon(int id, String year, int month, double lat, double Long, double Prs,
+	public Typhoon(String id, String year, int month, double lat, double Long, double Prs,
 			double Wnd) {
 		// TODO Auto-generated constructor stub
 		this.ID = id;
@@ -33,11 +32,11 @@ public class Typhoon {
 		this.Wnd = Wnd;
 	}
 	
-	public int getID() {
+	public String getID() {
 		return ID;
 	}
 	
-	public void setID(int id) {
+	public void setID(String id) {
 		this.ID = id;
 	}
 	

@@ -1,3 +1,4 @@
+
 ///////////////////////File Header///////////////////////////
 //Author: Zhe Wang
 //Email: zwang2428@wisc.edu
@@ -48,7 +49,7 @@ public class FileManager {
 			
 			a2+=1;
 
-			String id = array[0].substring(4, 6);
+			String id = array[0];
 			String specific_time = array[0].substring(6, array[0].length());
 			String month = array[0].substring(6, 8);
 			String lat = array[1];
@@ -56,9 +57,10 @@ public class FileManager {
 			String Prs = array[3];
 			String Wnd = array[4];
 			
-			//System.out.println(month);
+			System.out.println(year);
 			
-			Typhoon t = new Typhoon(Integer.parseInt(year), Integer.parseInt(month), Double.parseDouble(lat),
+			Typhoon t = new Typhoon(id,year, 
+					Integer.parseInt(month), Double.parseDouble(lat),
 					Double.parseDouble(Long), Double.parseDouble(Prs),Double.parseDouble(Wnd));
 			a.insert(id, t);
 			
