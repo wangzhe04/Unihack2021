@@ -280,8 +280,8 @@ public class main1 extends Application {
 		VBox vbox = new VBox(note, tableView);
 		Scene scene = new Scene(vbox);
 		Stage farmData = new Stage();
-		farmData.setHeight(400);
-		farmData.setWidth(400);
+		farmData.setHeight(500);
+		farmData.setWidth(500);
 		farmData.setTitle("Year: " + year);
 		farmData.setScene(scene);
 		farmData.show();

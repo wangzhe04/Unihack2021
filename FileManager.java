@@ -57,20 +57,20 @@ public class FileManager {
 			String Prs = array[3];
 			String Wnd = array[4];
 			
-			System.out.println(year);
+			//System.out.println(year);
 			
 			Typhoon t = new Typhoon(id,year, 
 					Integer.parseInt(month), Double.parseDouble(lat),
 					Double.parseDouble(Long), Double.parseDouble(Prs),Double.parseDouble(Wnd));
 			a.insert(id, t);
 			
-			if(a2 == 14997) {
+			if(a2 == 14998) {
 				break;
 			}
 			
 
 		}
-		System.out.println(10086);
+		//System.out.println(10086);
 	}
 
 

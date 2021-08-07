@@ -18,6 +18,10 @@ public class DataStorage {
 	public HashMap <String, Typhoon>dataStorage;
 	private int size;
 	
+	private int totalPrs = 0;
+	private int totalWnd = 0;
+	private int count = 0;
+	
 	public DataStorage() {
 		dataStorage = new HashMap();
 	}
@@ -56,6 +60,36 @@ public class DataStorage {
 			}
 		}
 		return IDs;
+	}
+	
+	public int predict(double slat, double elat, double slong, double elong, int month) {
+		int prediction = 0;
+
+
+		
+		for(Entry<String, Typhoon> entry : dataStorage.entrySet()) {
+			if(entry.getValue().getLat() > slat && entry.getValue().getLat()< elat) {
+				if(entry.getValue().getLong() > slong && entry.getValue().getLong()< elong) {
+					if(entry.getValue().getMonth() == month) {
+						totalPrs += entry.getValue().getPrs();
+						totalWnd += entry.getValue().getWnd();
+						count+=1;
+					}
+					
+				}
+			}
+		}
+		prediction = count/36;
+		
+		return prediction;
+	}
+	
+	public int predictPrs() {
+		return totalPrs/count;
+	}
+	
+	public int predictWnd() {
+		return totalWnd/count;
 	}
 	
 	
