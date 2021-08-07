@@ -155,9 +155,15 @@ public class Main extends Application {
 		searchR.setLayoutY(400);
 		root.getChildren().add(searchR);
 		
+		// Add search button
+		Button predictR = new Button("Predict");
+		predictR.setPrefWidth(140);
+		predictR.setLayoutX(180);
+		predictR.setLayoutY(450);
+		root.getChildren().add(predictR);
 		
 		
-
+		
 		EventHandler<ActionEvent> exitEvent = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				try {
@@ -168,7 +174,6 @@ public class Main extends Application {
 				}
 			}
 		};
-		
 		
 		EventHandler<ActionEvent> search = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -185,7 +190,7 @@ public class Main extends Application {
 						typhoonTable(primaryStage, Double.parseDouble(startLatitude.getText()), 
 								Double.parseDouble(endLatitude.getText()),
 								Double.parseDouble(startingLong.getText()),Double.parseDouble(endingLong.getText()),
-								Integer.parseInt(inputTime.getText()));
+								inputTime.getText());
 					}
 				} catch (Exception e1) {
 					Label error = new Label("The Typhoon does not exist");
@@ -197,6 +202,17 @@ public class Main extends Application {
 		
 		searchR.setOnAction(search);
 
+		EventHandler<ActionEvent> predict = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				try {
+					predicTion(primaryStage);
+				}catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		};
+		
+		predictR.setOnAction(predict);
 		
 		// Add an exit button
 		Button exitButton = new Button("Exit");
@@ -222,7 +238,7 @@ public class Main extends Application {
 	 * @throws Exception
 	 */
 	public void typhoonTable(Stage stage, double slat, double elat, 
-			double slong, double elong, int year) throws Exception {
+			double slong, double elong, String year) throws Exception {
 		
 		// Create a table to show the data
 		TableView tableView = new TableView();
@@ -260,8 +276,6 @@ public class Main extends Application {
 	
 		int Asize = tIDs.size();
 		
-		System.out.println(Asize);
-		
 		for(int i = 0; i < Asize; i++) {
 			
 			tableView.getItems()
@@ -280,14 +294,164 @@ public class Main extends Application {
 		
 		VBox vbox = new VBox(note, tableView);
 		Scene scene = new Scene(vbox);
-		Stage farmData = new Stage();
-		farmData.setHeight(400);
-		farmData.setWidth(400);
-		farmData.setTitle("Year: " + year);
-		farmData.setScene(scene);
-		farmData.show();
+		Stage typhoonData = new Stage();
+		typhoonData.setHeight(500);
+		typhoonData.setWidth(500);
+		typhoonData.setTitle("Year: " + year);
+		typhoonData.setScene(scene);
+		typhoonData.show();
 	}
 
+	public void predicTion(Stage stage) throws Exception {
+		Pane predictPane = new Pane();
+		// Create a textField to enter year
+		Label title = new Label("Typhoon prediction: ");
+		title.setLayoutX(190);
+		title.setLayoutY(35);
+		predictPane.getChildren().add(title);
+		
+		Label latitudeL = new Label("Latitude: ");
+		latitudeL.setLayoutX(50);
+		latitudeL.setLayoutY(150);
+		predictPane.getChildren().add(latitudeL);
+		// Create a new textField that allows input starting latitude
+		TextField startLatitude = new TextField();
+		startLatitude.setPrefSize(150, 25);
+		startLatitude.setEditable(true);
+		startLatitude.setAlignment(Pos.CENTER_LEFT);
+		startLatitude.setPrefColumnCount(20);
+		startLatitude.setPromptText("Please input start Latitude here");
+		predictPane.getChildren().add(startLatitude);
+		startLatitude.setLayoutX(130);
+		startLatitude.setLayoutY(150);
+		// Create a new textField that allows input ending latitude
+		TextField endLatitude = new TextField();
+		endLatitude.setPrefSize(150, 25);
+		endLatitude.setEditable(true);
+		endLatitude.setAlignment(Pos.CENTER_LEFT);
+		endLatitude.setPrefColumnCount(20);
+		endLatitude.setPromptText("Please input end latitude here");
+		predictPane.getChildren().add(endLatitude);
+		endLatitude.setLayoutX(300);
+		endLatitude.setLayoutY(150);
+		
+		Label longL = new Label("Longtitude: ");
+		longL.setLayoutX(50);
+		longL.setLayoutY(200);
+		predictPane.getChildren().add(longL);
+		// Create a new textField that allows input starting latitude
+		TextField startingLong = new TextField();
+		startingLong.setPrefSize(150, 25);
+		startingLong.setEditable(true);
+		startingLong.setAlignment(Pos.CENTER_LEFT);
+		startingLong.setPrefColumnCount(20);
+		startingLong.setPromptText("Please input start longtitude here");
+		predictPane.getChildren().add(startingLong);
+		startingLong.setLayoutX(130);
+		startingLong.setLayoutY(200);
+		// Create a new textField that allows input ending latitude
+		TextField endingLong = new TextField();
+		endingLong.setPrefSize(150, 25);
+		endingLong.setEditable(true);
+		endingLong.setAlignment(Pos.CENTER_LEFT);
+		endingLong.setPrefColumnCount(20);
+		endingLong.setPromptText("Please input end longtitude here");
+		predictPane.getChildren().add(endingLong);
+		endingLong.setLayoutX(300);
+		endingLong.setLayoutY(200);
+		
+		Label timeL = new Label("Month: ");
+		timeL.setLayoutX(50);
+		timeL.setLayoutY(250);
+		predictPane.getChildren().add(timeL);
+		// Create a new textField that allows input starting latitude
+		TextField inputMonth = new TextField();
+		inputMonth.setPrefSize(150, 25);
+		inputMonth.setEditable(true);
+		inputMonth.setAlignment(Pos.CENTER_LEFT);
+		inputMonth.setPrefColumnCount(20);
+		inputMonth.setPromptText("Please input month here");
+		predictPane.getChildren().add(inputMonth);
+		inputMonth.setLayoutX(130);
+		inputMonth.setLayoutY(250);
+		
+		
+		
+		Button dataButton = new Button("Get Prediction");
+		dataButton.setPrefWidth(100);
+		dataButton.setLayoutX(195);
+		dataButton.setLayoutY(330);
+		predictPane.getChildren().add(dataButton);
+		
+		
+		EventHandler<ActionEvent> predictionEvent = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				try {
+					if(startLatitude.getText().isEmpty() || endLatitude.getText().isEmpty() ||
+							startingLong.getText().isEmpty() || endingLong.getText().isEmpty() ||
+							inputMonth.getText().isEmpty()) {
+						Label error = new Label("Must enter all information correctly");
+						predictPane.getChildren().add(error);
+						error.relocate(145, 450);
+					}
+					
+					else {
+						predictTable(stage, Double.parseDouble(startLatitude.getText()), 
+								Double.parseDouble(endLatitude.getText()),
+								Double.parseDouble(startingLong.getText()),Double.parseDouble(endingLong.getText()),
+								inputMonth.getText());
+					}
+				} catch (Exception e1) {
+					Label error = new Label("The Typhoon does not exist");
+					predictPane.getChildren().add(error);
+					error.relocate(135, 500);
+				}
+			}
+		};
+		dataButton.setOnAction(predictionEvent);
+		
+		// Build the scene
+		Scene pScene = new Scene(predictPane, WINDOW_WIDTH, WINDOW_HEIGHT);
+		Stage pStage = new Stage();
+		pStage.setTitle("Predict");
+		pStage.setScene(pScene);
+		pStage.show();
+		// Add an exit button
+		Button exitButton = new Button("Exit");
+		exitButton.setPrefWidth(80);
+		exitButton.setLayoutX(425);
+		exitButton.setLayoutY(473);
+		predictPane.getChildren().add(exitButton);
+		exitButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				pStage.close();
+			}
+		});
+	}
+	
+	public void predictTable(Stage stage, double slat, double elat, 
+			double slong, double elong, String month) throws Exception {
+		// Create a table to show the data
+		
+		Label laji = new Label("There will be " + dataStorage.predict(slat, elat, 
+				slong, elong, Integer.parseInt(month))+ " typhoons in "+ month);
+		
+		Label laji2 = new Label("The average wind pressure in month "+ month + " is " +dataStorage.predictPrs());
+		
+		Label laji3 = new Label("The average wind in "+ month + " is " +dataStorage.predictWnd());
+		
+		
+		
+		VBox vbox = new VBox(laji, laji2, laji3);
+		Scene scene = new Scene(vbox);
+		Stage typhoonData = new Stage();
+		typhoonData.setHeight(500);
+		typhoonData.setWidth(500);
+		typhoonData.setTitle("Month: " + month);
+		typhoonData.setScene(scene);
+		typhoonData.show();
+	}
 	
 	/**
 	 * @param args
@@ -302,6 +466,7 @@ public class Main extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		launch(args);
 		
