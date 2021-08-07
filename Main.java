@@ -52,7 +52,7 @@ public class Main extends Application {
 	private static final int WINDOW_WIDTH = 500;
 	private static final int WINDOW_HEIGHT = 500;
 	private static final String APP_TITLE = "Typhoon Data!";
-	private static final String Months[] = { "Jan", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov",
+	private static final String Months[] = { "null", "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov",
 			"Dec" };
 	private static DataStorage dataStorage = new DataStorage();
 
@@ -206,6 +206,7 @@ public class Main extends Application {
 			public void handle(ActionEvent e) {
 				try {
 					predicTion(primaryStage);
+					primaryStage.close();
 				}catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -400,6 +401,7 @@ public class Main extends Application {
 								Double.parseDouble(endLatitude.getText()),
 								Double.parseDouble(startingLong.getText()),Double.parseDouble(endingLong.getText()),
 								inputMonth.getText());
+						stage.close();
 					}
 				} catch (Exception e1) {
 					Label error = new Label("The Typhoon does not exist");
@@ -434,20 +436,22 @@ public class Main extends Application {
 			double slong, double elong, String month) throws Exception {
 		// Create a table to show the data
 		
-		Label laji = new Label("There will be " + dataStorage.predict(slat, elat, 
-				slong, elong, Integer.parseInt(month))+ " typhoons in month "+ month);
+		String monthL = "";
 		
-		Label laji2 = new Label("The average wind pressure in month "+ month + " is " +dataStorage.predictPrs());
-		
-		Label laji3 = new Label("The average wind in month "+ month + " is " +dataStorage.predictWnd());
+		Label laji = new Label("There could be " + dataStorage.predict(slat, elat, 
+			    slong, elong, Integer.parseInt(month))+ " typhoons in month "+ Months[Integer.parseInt(month)]+ " in this selected area");
+			  
+		Label laji2 = new Label("The predicted average wind pressure in month "+ Months[Integer.parseInt(month)] + " is " +dataStorage.predictPrs()+" hPa");
+			  
+		Label laji3 = new Label("The predicted average wind speed in month "+ Months[Integer.parseInt(month)] + " is " +dataStorage.predictWnd() + " Km/h");
 		
 		Label laji4 = new Label(determineLevel(dataStorage.predictWnd()));
 		
 		VBox vbox = new VBox(laji, laji2, laji3, laji4);
 		Scene scene = new Scene(vbox);
 		Stage typhoonData = new Stage();
-		typhoonData.setHeight(500);
-		typhoonData.setWidth(500);
+		typhoonData.setHeight(400);
+		typhoonData.setWidth(800);
 		typhoonData.setTitle("Month: " + month);
 		typhoonData.setScene(scene);
 		typhoonData.show();
@@ -472,20 +476,22 @@ public class Main extends Application {
 		   level = 17;
 		  }else if(Wnd <32.7) {
 		   not_Typhoon = true;
+		   level = 11;
 		  }else {
 		   level = 18;
 		  }
 		  
-		  if(level <= 14) {
-		   return_Value = "The predicted typhoon is relatively weak, ranked " + level + 
-		     ". Still need to watch out and stay at home ";
-		  }else if(level >= 15) {
-		   return_Value = "The predicted typhoon is relatively strong, ranked " + level + 
-		     ". needs to be cautious and better stay at home";
-		  }else if(not_Typhoon) {
-			   return_Value = "The predicted wind is not strong enough to form typhoon, ranked " + level + 
-					     ". You can go out and enjoy the month";
-		  }
+		  if(level >= 12 && level <= 14) {
+			     return_Value = "The predicted typhoon is relatively weak, ranked " + level + 
+			       ". Still need to watch out and stay at home ";
+			    }else if(level >= 15) {
+			     return_Value = "The predicted typhoon is relatively strong, ranked " + level + 
+			       ". needs to be cautious and better stay at home";
+			    }else if(not_Typhoon) {
+			      return_Value = "The predicted wind is not strong enough to form typhoon, ranked " + level + 
+			          " or under. You can go out and enjoy this month";
+			    }
+
 		  
 		  return return_Value;
 		 }

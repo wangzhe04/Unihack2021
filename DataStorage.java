@@ -1,6 +1,7 @@
 /**
  * this File contains the DataStorage class to run the program
  */
+package application;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,7 +18,6 @@ public class DataStorage {
 	
 	public HashMap <String, Typhoon>dataStorage;
 	private int size;
-	
 	private int totalPrs = 0;
 	private int totalWnd = 0;
 	private int count = 0;
@@ -43,19 +43,14 @@ public class DataStorage {
 		
 		ArrayList<String> IDs = new ArrayList<String>();
 		
-		System.out.println(dataStorage.size());
-		
 		for(Entry<String, Typhoon> entry : dataStorage.entrySet()) {
 			
-			if(entry.getValue().getYear().equals(year)) {
+			if(entry.getValue().getYear().equals(year) && entry.getValue().getLat() <= elat &&
+					entry.getValue().getLat() >= slat && entry.getValue().getLong() >= slong
+					&& entry.getValue().getLong() <= elong) {
 				
-				if(entry.getValue().getLat() > slat && entry.getValue().getLat()< elat) {
-					if(entry.getValue().getLong() > slong && entry.getValue().getLong()< elong) {
-						IDs.add(entry.getKey());
-					}
-				}
 				
-
+				IDs.add(entry.getKey());
 				
 			}
 		}
@@ -64,9 +59,10 @@ public class DataStorage {
 	
 	public int predict(double slat, double elat, double slong, double elong, int month) {
 		int prediction = 0;
+		totalPrs = 0;
+		totalWnd = 0;
+		count = 0;
 
-
-		
 		for(Entry<String, Typhoon> entry : dataStorage.entrySet()) {
 			if(entry.getValue().getLat() > slat && entry.getValue().getLat()< elat) {
 				if(entry.getValue().getLong() > slong && entry.getValue().getLong()< elong) {
@@ -91,7 +87,6 @@ public class DataStorage {
 	public int predictWnd() {
 		return totalWnd/count;
 	}
-	
 	
 	public boolean remove(String farmID) {
 		if(contains(farmID)) {

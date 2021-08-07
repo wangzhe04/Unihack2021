@@ -1,6 +1,7 @@
 /**
  * This file contains the Farm class to run the program
  */
+package application;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
