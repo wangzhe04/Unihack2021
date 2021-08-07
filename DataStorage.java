@@ -10,12 +10,14 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataStorage {
 	
 	public HashMap <String, Typhoon>dataStorage;
+	private int size;
 	
 	public DataStorage() {
 		dataStorage = new HashMap();
@@ -23,6 +25,7 @@ public class DataStorage {
 	
 	public void insert(String TyphoonID, Typhoon ty) {
 		dataStorage.put(TyphoonID, ty);
+		++size;
 	}
 	
 	public Typhoon get(String TyphoonID) {
@@ -38,14 +41,16 @@ public class DataStorage {
 		ArrayList<String> IDs = new ArrayList<String>();
 		
 		for(Entry<String, Typhoon> entry : dataStorage.entrySet()) {
+			
 			if(entry.getValue().getYear() == year && entry.getValue().getLat() <= elat &&
 					entry.getValue().getLat() >= slat && entry.getValue().getLong() >= slong
 					&& entry.getValue().getLong() <= elong) {
 				
+				
 				IDs.add(entry.getKey());
+				
 			}
 		}
-		
 		return IDs;
 	}
 	
@@ -58,5 +63,16 @@ public class DataStorage {
 			return false;
 		}
 	}
+	
+	public boolean isEmpty() {
+		return dataStorage.isEmpty();
+	}
+	
+	public int getSize() {
+		return size;
+	}
+	
+		
+	
 
 }

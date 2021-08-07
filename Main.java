@@ -228,21 +228,25 @@ public class Main extends Application {
 		TableView tableView = new TableView();
 		
 		TableColumn<String, Typhoon> column1 = new TableColumn<>("ID");
-		column1.setCellValueFactory(new PropertyValueFactory<>("id"));
+		column1.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		
 		TableColumn<String, Typhoon> column2 = new TableColumn<>("Year");
 		column2.setCellValueFactory(new PropertyValueFactory<>("year"));
+		
 		TableColumn<String, Typhoon> column3 = new TableColumn<>("Month");
 		column3.setCellValueFactory(new PropertyValueFactory<>("month"));
 		
 		TableColumn<String, Typhoon> column4 = new TableColumn<>("Latitude");
-		column4.setCellValueFactory(new PropertyValueFactory<>("latitude"));
+		column4.setCellValueFactory(new PropertyValueFactory<>("lat"));
+		
 		TableColumn<String, Typhoon> column5 = new TableColumn<>("Longtitude");
-		column5.setCellValueFactory(new PropertyValueFactory<>("longtitude"));
+		column5.setCellValueFactory(new PropertyValueFactory<>("long"));
+		
 		TableColumn<String, Typhoon> column6 = new TableColumn<>("Pressure");
-		column6.setCellValueFactory(new PropertyValueFactory<>("prs"));
-		TableColumn<String, Typhoon> column7 = new TableColumn<>("Level");
-		column7.setCellValueFactory(new PropertyValueFactory<>("level"));
+		column6.setCellValueFactory(new PropertyValueFactory<>("Prs"));
+		
+		TableColumn<String, Typhoon> column7 = new TableColumn<>("Wnd");
+		column7.setCellValueFactory(new PropertyValueFactory<>("Wnd"));
 		
 		tableView.getColumns().add(column1);
 		tableView.getColumns().add(column2);
@@ -253,23 +257,23 @@ public class Main extends Application {
 		tableView.getColumns().add(column7);
 		
 		ArrayList<String> tIDs = dataStorage.getID(slat, elat, slong, elong, year);
-		
+	
 		int Asize = tIDs.size();
 		
 		for(int i = 0; i < Asize; i++) {
+			
 			tableView.getItems()
-			.add(new Typhoon(tIDs.get(i) , dataStorage.get(tIDs.get(i)).getYear(), 
+			.add(new Typhoon(dataStorage.get(tIDs.get(i)).getID() , 
+					dataStorage.get(tIDs.get(i)).getYear(), 
 					dataStorage.get(tIDs.get(i)).getMonth(),
 					dataStorage.get(tIDs.get(i)).getLat(),
 					dataStorage.get(tIDs.get(i)).getLong(),
 					dataStorage.get(tIDs.get(i)).getPrs(),
 					dataStorage.get(tIDs.get(i)).getWnd()
 					)
-					
 					);
 		}
- 		
-
+		
 		Label note = new Label("click each column's title to sort(ascending / descending) ");
 		
 		VBox vbox = new VBox(note, tableView);
@@ -288,7 +292,14 @@ public class Main extends Application {
 	 */
 	public static void main(String[] args) {
 		
+		File file = new File ("/Users/huangyibin/Desktop/myworkspace/a2_milestone/data.csv");
 		
+		try {
+			FileManager a = new FileManager(file, dataStorage);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		launch(args);
 		
