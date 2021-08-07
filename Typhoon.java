@@ -1,76 +1,101 @@
+/**
+ * This file contains the Farm class to run the program
+ */
+package application;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+/**
+ * Creates objects to build a Farm
+ * @author huangyibin
+ *
+ */
 public class Typhoon {
-	private int year;
-	private int id;
-	private int specific_time;
-	private double lat;
-	private double Long;
-	private double prs;
-	private double wnd;
-	private int month;
+	public int ID = 0;
+	public String year = "";
+	public int month = 0;
+	public double lat = 0;
+	public double Long = 0;
+	public double Prs = 0;
+	public double Wnd = 0;
 	
 	
-	public Typhoon(int year, int id, int specific_time, double lat, double l, double prs, double wnd, int month) {
-		super();
+	public Typhoon(int id, String year, int month, double lat, double Long, double Prs,
+			double Wnd) {
+		// TODO Auto-generated constructor stub
+		this.ID = id;
 		this.year = year;
-		this.id = id;
-		this.specific_time = specific_time;
 		this.lat = lat;
-		Long = l;
-		this.prs = prs;
-		this.wnd = wnd;
 		this.month = month;
+		this.Long = Long;
+		this.Prs = Prs;
+		this.Wnd = Wnd;
 	}
 	
-	public int getYear() {
+	public int getID() {
+		return ID;
+	}
+	
+	public void setID(int id) {
+		this.ID = id;
+	}
+	
+	public String getYear() {
 		return year;
 	}
-	public void setYear(int year) {
-		this.year = year;
+	
+	public void setYear(String y) {
+		this.year = y;
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getSpecific_time() {
-		return specific_time;
-	}
-	public void setSpecific_time(int specific_time) {
-		this.specific_time = specific_time;
+	
+	
+	public int getMonth() {
+		return month;
 	}
 	public double getLat() {
 		return lat;
 	}
+	
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
+	
 	public double getLong() {
 		return Long;
 	}
+	
 	public void setLong(double l) {
 		Long = l;
 	}
+	
 	public double getPrs() {
-		return prs;
+		return Prs;
 	}
+	
 	public void setPrs(double prs) {
-		this.prs = prs;
+		this.Prs = prs;
 	}
+	
 	public double getWnd() {
-		return wnd;
+		return Wnd;
 	}
+	
 	public void setWnd(double wnd) {
-		this.wnd = wnd;
+		this.Wnd = wnd;
 	}
-	public int getMonth() {
-		return month;
-	}
+
+	
 	public void setMonth(int month) {
 		this.month = month;
 	}
-
+	
+	
+	
+	
+	
+	
+	
 	
 
 }
